@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+              xmlns:Validators="clr-namespace:DonorTraceMobile.Validators.Implementations"
+             xmlns:Behaviors="clr-namespace:DonorTraceMobile.Behaviors"
+             x:Class="DonorTraceMobile.Pages.SignUpPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Margin="40" HorizontalOptions="Center">
+                <Image Source="headertransplant.png" HeightRequest="100" WidthRequest="100"></Image>
+                <Label Text="Welcome to Donor Trace" Margin="5,0,0,0" FontSize="Medium" TextColor="#707070"></Label>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Margin="40,0,40,0" VerticalOptions="CenterAndExpand">
+                <StackLayout.Behaviors>
+                    <Behaviors:ValidationGroupBehavior x:Name="form"/>
+                </StackLayout.Behaviors>
+                <Entry Placeholder="Email" PlaceholderColor="#707070" x:Name="EntEmail">
+                    <Entry.Behaviors>
+                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                                              PropertyName="Text">
+                            <Behaviors:ValidationBehavior.Validators>
+                                <Validators:RequiredValidator Message="Email is required" />
+                                <Validators:FormatValidator Format="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" Message="Invalid email"></Validators:FormatValidator>
+                            </Behaviors:ValidationBehavior.Validators>
+                        </Behaviors:ValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="Password" PlaceholderColor="#707070" x:Name="EntPassword" IsPassword="True">
+                    <Entry.Behaviors>
+                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                                              PropertyName="Text">
+                            <Behaviors:ValidationBehavior.Validators>
+                                <Validators:RequiredValidator Message="Password is required" />
+                            </Behaviors:ValidationBehavior.Validators>
+                        </Behaviors:ValidationBehavior>
+                    </Entry.Behaviors>
+                </Entry>
+                <Entry Placeholder="Confirm Password" TextChanged="ConfirmPassword_TextChanged" PlaceholderColor="#707070" x:Name="confirmPassword" IsPassword="True">
+                    <Entry.Behaviors>
+                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                                              PropertyName="Text">
+                            <Behaviors:ValidationBehavior.Validators>
+                                <Validators:RequiredValidator Message="Confirm Password is required" />
+                                <Validators:CompareValidator x:Name="pass"></Validators:CompareValidator>
+                            </Behaviors:ValidationBehavior.Validators>
+                        </Behaviors:ValidationBehavior>
+                       
+                    </Entry.Behaviors>
+                </Entry>
+                <Button Text="Sign Up" CornerRadius="30" HeightRequest="40" x:Name="BtnSignUp" Clicked="BtnSignUp_Clicked" IsEnabled="{Binding Source={x:Reference form}, Path=IsValid}"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils"
+              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="DonorTraceMobile.Pages.BecomeDonor">
+    <ContentPage.Content>
+        <ScrollView>
+        <StackLayout Margin="20">
+            <Label Text="Become A Donor" FontSize="Medium" 
+                HorizontalOptions="CenterAndExpand" />
+            <Image x:Name="ImgProfile" Source="placeholderhead.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+            <Entry Placeholder="Firstname"></Entry>
+            <Entry Placeholder="Lastname"></Entry>
+            <Entry Placeholder="Phone"></Entry>
+                <Picker Title="Select a region" x:Name="reg" ItemDisplayBinding="{Binding Name}"></Picker>
+                <Label Text="Gender"></Label>
+            <input:RadioButtonGroupView  Orientation="Horizontal">
+                    <input:RadioButton Text="Male" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+                    <input:RadioButton Text="Female" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+            </input:RadioButtonGroupView>
+                <Label>Donate</Label>
+                <StackLayout Orientation="Horizontal">
+                    <input:CheckBox Text="Blood" x:Name="chkBlood" Color="#45AC2B" CheckChanged="ChkBlood_CheckChanged" Type="Check" BorderColor="#45AC2B" />
+                    <input:CheckBox Text="Organ" x:Name="chkOrgan" Color="#45AC2B" CheckChanged="ChkOrgan_CheckChanged" Type="Check" BorderColor="#45AC2B"/>
+                </StackLayout>
+                <StackLayout IsVisible="False" Spacing="10" x:Name="bld" Orientation="Horizontal">
+
+                    <Picker SelectedIndexChanged="EntBloodGroup_SelectedIndexChanged"  Title="Blood Group" x:Name="EntBloodGroup" ItemDisplayBinding="{Binding Name}"></Picker>
+                    <Picker Title="Blood Type" x:Name="EntBloodType" ItemDisplayBinding="{Binding Name}"></Picker>
+
+                </StackLayout>
+
+                
+                  
+                    <StackLayout IsVisible="False" Orientation="Horizontal" x:Name="org" HeightRequest="160" Spacing="5">
+                        <ListView x:Name="lst" RowHeight="40" CachingStrategy="RecycleElement" SeparatorColor="Transparent" BackgroundColor="Transparent">
+
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <ViewCell>
+
+                                    <input:CheckBox Color="#45AC2B" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Text="{Binding Name}" Type="Check" BorderColor="#45AC2B" HeightRequest="20" />
+
+                                    </ViewCell>
+
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </StackLayout>
+               
+                
+              
+                <Button BackgroundColor="#45AC2B" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Register"></Button>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

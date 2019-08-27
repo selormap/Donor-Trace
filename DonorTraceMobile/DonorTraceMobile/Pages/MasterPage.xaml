@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:DonorTraceMobile.Pages;assembly=DonorTraceMobile"
+             mc:Ignorable="d"
+             xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils"
+             x:Class="DonorTraceMobile.Pages.MasterPage">
+
+    <MasterDetailPage.Master>
+        <ContentPage Title="Master">
+           
+            <StackLayout>
+                <Grid>
+                    <BoxView BackgroundColor="#45AC2B" HeightRequest="150"></BoxView>
+                    <Label FontSize="Medium" Text="Welcome to Donor Trace" FontAttributes="Bold" TextColor="White" Margin="20,75,0,0"></Label>
+                </Grid>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.Home}"
+        FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Home" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapHome" Tapped="TapHome_Tapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.Key}"
+        FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Change Password" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapChangePass" Tapped="TapChangePass_Tapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.UserPlus}"
+        FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Become a Donor" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapDonor" Tapped="TapDonor_Tapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.SignOutAlt}"
+        FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Logout"  FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapLogout" Tapped="TapLogout_Tapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <pages:HomePage></pages:HomePage>
+                
+            </x:Arguments>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+
+</MasterDetailPage>
