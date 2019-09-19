@@ -3,7 +3,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,7 @@ namespace DonorTraceMobile.Services
 {
     public class ApiService
     {
+       // string apiUrl = "https://dtrace.azurewebsites.net/api/";
         string apiUrl = "http://10.0.2.2:5000/api/";
         public async Task<HttpResponseMessage> RegisterUser(string email, string password, string confirmPassword)
         {
@@ -29,9 +32,6 @@ namespace DonorTraceMobile.Services
 
         public async Task<bool> Login(string email, string password)
         {
-            
-
-            ///My login
             var loginModel = new LoginModel()
             {
                 Email = email,
@@ -51,6 +51,7 @@ namespace DonorTraceMobile.Services
                 Settings.Id = token.Id;
                 Settings.Email = email;
                 Settings.Password = password;
+                Settings.Role = accessToken.Role;
             }
 
             return response.IsSuccessStatusCode;
@@ -82,6 +83,82 @@ namespace DonorTraceMobile.Services
             var httpClient = new HttpClient();
             var json = await httpClient.GetStringAsync(apiUrl + "repo/bloodtype/" + id);
             return JsonConvert.DeserializeObject<List<BloodType>>(json);
+        }
+
+        public async Task<List<BloodType>> GetBloodTypes()
+        {
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync(apiUrl + "repo/blood-type");
+            return JsonConvert.DeserializeObject<List<BloodType>>(json);
+        }
+
+        public async Task<bool> BecomeADonor(Donor donor)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(donor);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/donate", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> AddOrganOption(OrganOption option)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(option);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/organ-option", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> AddBloodOrganOption(BloodOrganOption option)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(option);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/organ-option", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<List<DonorModel>> GetDonors()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/donors");
+            return JsonConvert.DeserializeObject<List<DonorModel>>(response);
+        }
+
+        public async Task<DonorModel> GetDonor(string id)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/donors/" + id);
+            return JsonConvert.DeserializeObject<DonorModel>(response);
+        }
+
+        public async Task<OfficerModel> GetOfficer(string id)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/officer/" + id);
+            return JsonConvert.DeserializeObject<OfficerModel>(response);
+        }
+
+        public async Task<BloodOption> GetBloodType(string id)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/blood-type/" + id);
+            return JsonConvert.DeserializeObject<BloodOption>(response);
+        }
+        public async Task<List<DonorOrgan>> GetOrganType(string id)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/organ/" + id);
+            return JsonConvert.DeserializeObject<List<DonorOrgan>>(response);
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DonorTraceMobile.Pages.FindDonor">
+    <ContentPage.Content>
+        <StackLayout Margin="20" Padding="20">
+           <Picker Title="Region" ItemDisplayBinding="{Binding Name}"  x:Name="PckRegion"></Picker>
+            <Picker Title="Gender" x:Name="PckGender">
+                <Picker.Items>
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </Picker.Items>
+            </Picker>
+            <Picker Title="Blood Type" ItemDisplayBinding="{Binding Name}"  x:Name="PckGroup"></Picker>
+            <Picker Title="Organ" x:Name="PckOrgan" ItemDisplayBinding="{Binding Name}"></Picker>
+            <Button CornerRadius="30" TextColor="White" BackgroundColor="#45AC2B" Text="Search" x:Name="BtnSearch" Clicked="BtnSearch_OnClicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

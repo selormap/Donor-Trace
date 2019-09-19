@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:DonorTraceMobile.Pages;assembly=DonorTraceMobile"
+             xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils;assembly=DonorTraceMobile"
+             mc:Ignorable="d"
+             x:Class="DonorTraceMobile.Pages.AdminMaster">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Admin">
+            <StackLayout>
+                <Grid>
+                    <BoxView BackgroundColor="#45AC2B" HeightRequest="150"></BoxView>
+                    <Label FontSize="Medium" Text="Welcome to Back Office" FontAttributes="Bold" TextColor="White" Margin="20,75,0,0"></Label>
+                </Grid>
+
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.Home}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Home" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapHome" Tapped="TapHome_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.Hospital}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Facilities" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapFacility" Tapped="TapFacility_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.UserMd}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Home" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapDoctor" Tapped="TapDoctor_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+            </StackLayout>
+
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+<NavigationPage>
+    <x:Arguments>
+        <pages:AdminHome></pages:AdminHome>
+            </x:Arguments>
+</NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

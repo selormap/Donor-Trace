@@ -15,6 +15,7 @@ namespace DonorTraceMobile.Pages
         public MasterPage()
         {
             InitializeComponent();
+            
         }
 
         private void BtnHome_Clicked(object sender, EventArgs e)
@@ -48,6 +49,12 @@ namespace DonorTraceMobile.Pages
             Settings.Token = string.Empty;
 
             Application.Current.MainPage = new NavigationPage (new LoginPage());
+        }
+
+        private void TapDonors_OnTapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new Donors());
+            IsPresented = false;
         }
     }
 }

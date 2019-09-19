@@ -32,7 +32,7 @@ namespace DonorTraceMobile.Pages
             else
             {
                 await DisplayAlert("Success", "Your account has been created", "Ok");
-                await Navigation.PopToRootAsync();
+                await Navigation.PopAsync();
             }
         }
 

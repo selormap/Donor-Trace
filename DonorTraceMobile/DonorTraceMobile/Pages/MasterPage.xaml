@@ -32,6 +32,15 @@
                         <TapGestureRecognizer x:Name="TapChangePass" Tapped="TapChangePass_Tapped"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
+
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10" x:Name="StackDonors">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.Users}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Donors" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapDonors" Tapped="TapDonors_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
                 <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.UserPlus}"
         FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />

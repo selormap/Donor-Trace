@@ -11,27 +11,28 @@
         <ScrollView>
         <StackLayout Margin="20">
             <Label Text="Become A Donor" FontSize="Medium" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand">
+            </Label>
             <Image x:Name="ImgProfile" Source="placeholderhead.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
                 </Image.GestureRecognizers>
             </Image>
-            <Entry Placeholder="Firstname"></Entry>
-            <Entry Placeholder="Lastname"></Entry>
-            <Entry Placeholder="Phone"></Entry>
-                <Picker Title="Select a region" x:Name="reg" ItemDisplayBinding="{Binding Name}"></Picker>
+            <Entry Placeholder="Firstname" x:Name="EntFirstname"></Entry>
+            <Entry Placeholder="Lastname" x:Name="EntLastname"></Entry>
+            <Entry MaxLength="10" Placeholder="Phone" x:Name="EntPhone"></Entry>
+                <Picker Title="Select a region" x:Name="Reg" ItemDisplayBinding="{Binding Name}"></Picker>
                 <Label Text="Gender"></Label>
-            <input:RadioButtonGroupView  Orientation="Horizontal">
-                    <input:RadioButton Text="Male" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
-                    <input:RadioButton Text="Female" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+            <input:RadioButtonGroupView x:Name="RdGender"  Orientation="Horizontal">
+                    <input:RadioButton Text="Male" Value="Male" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+                    <input:RadioButton Text="Female" Value="Female" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
             </input:RadioButtonGroupView>
                 <Label>Donate</Label>
                 <StackLayout Orientation="Horizontal">
-                    <input:CheckBox Text="Blood" x:Name="chkBlood" Color="#45AC2B" CheckChanged="ChkBlood_CheckChanged" Type="Check" BorderColor="#45AC2B" />
-                    <input:CheckBox Text="Organ" x:Name="chkOrgan" Color="#45AC2B" CheckChanged="ChkOrgan_CheckChanged" Type="Check" BorderColor="#45AC2B"/>
+                    <input:CheckBox Text="Blood" x:Name="ChkBlood" Color="#45AC2B" CheckChanged="ChkBlood_CheckChanged" Type="Check" BorderColor="#45AC2B" />
+                    <input:CheckBox Text="Organ" x:Name="ChkOrgan" Color="#45AC2B" CheckChanged="ChkOrgan_CheckChanged" Type="Check" BorderColor="#45AC2B"/>
                 </StackLayout>
-                <StackLayout IsVisible="False" Spacing="10" x:Name="bld" Orientation="Horizontal">
+                <StackLayout IsVisible="False" Spacing="10" x:Name="Bld" Orientation="Horizontal">
 
                     <Picker SelectedIndexChanged="EntBloodGroup_SelectedIndexChanged"  Title="Blood Group" x:Name="EntBloodGroup" ItemDisplayBinding="{Binding Name}"></Picker>
                     <Picker Title="Blood Type" x:Name="EntBloodType" ItemDisplayBinding="{Binding Name}"></Picker>
@@ -40,16 +41,17 @@
 
                 
                   
-                    <StackLayout IsVisible="False" Orientation="Horizontal" x:Name="org" HeightRequest="160" Spacing="5">
-                        <ListView x:Name="lst" RowHeight="40" CachingStrategy="RecycleElement" SeparatorColor="Transparent" BackgroundColor="Transparent">
+                    <StackLayout IsVisible="False" Orientation="Horizontal" x:Name="Org" HeightRequest="160" Spacing="5">
+                        <ListView x:Name="Lst" RowHeight="40" CachingStrategy="RecycleElement" SeparatorColor="Transparent" BackgroundColor="Transparent">
 
                             <ListView.ItemTemplate>
 
                                 <DataTemplate>
 
                                     <ViewCell>
+                                       
 
-                                    <input:CheckBox Color="#45AC2B" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Text="{Binding Name}" Type="Check" BorderColor="#45AC2B" HeightRequest="20" />
+                                        <input:CheckBox x:Name="ChBox" CheckChanged="ChBox_OnCheckChanged" Color="#45AC2B" BindingContext="{Binding .}" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Text="{Binding Name}" Type="Check" BorderColor="#45AC2B" HeightRequest="20" />
 
                                     </ViewCell>
 
@@ -59,11 +61,28 @@
 
                         </ListView>
                     </StackLayout>
-               
-                
-              
-                <Button BackgroundColor="#45AC2B" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Register"></Button>
+
+                <StackLayout Margin="0,20,0,0">
+
+                    <Button BackgroundColor="#45AC2B" x:Name="BtnRegister" Clicked="BtnRegister_OnClicked" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Register" Visual="Material"></Button>
         </StackLayout>
+
+            <StackLayout>
+                <AbsoluteLayout>
+
+
+                    <ActivityIndicator x:Name="act" AbsoluteLayout.LayoutBounds="0.5,1,70,70" 
+                                       AbsoluteLayout.LayoutFlags="XProportional, YProportional" 
+                                       Color="#45AC2B" BackgroundColor="Transparent" IsRunning="False">
+
+                    </ActivityIndicator>
+
+
+                </AbsoluteLayout>
+                </StackLayout>
+</StackLayout>
+          
         </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>

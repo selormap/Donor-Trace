@@ -33,7 +33,7 @@ namespace DonorTraceAPI.Controllers
         }
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterDto model)
+        public async Task<IActionResult> Register([FromBody]RegisterDto model)
         {
             if (!ModelState.IsValid)
             {
@@ -74,15 +74,17 @@ namespace DonorTraceAPI.Controllers
                 return Unauthorized();
             }
 
-            User user = await _userManager.FindByEmailAsync(login.Email);
+            User user = await _userManager.FindByNameAsync(login.Email);
             JwtSecurityToken token = await GenerateTokenAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
             //defined
             string serializedToken = new
             JwtSecurityTokenHandler().WriteToken(token); //serialize the token
             return Ok(new SuccessfulLoginResult()
             {
                 Token = serializedToken,
-                Id = user.Id
+                Id = user.Id,
+               Role = roles.FirstOrDefault()
             });
         }
 
@@ -122,6 +124,35 @@ namespace DonorTraceAPI.Controllers
             );
 
             return token;
+        }
+
+        [HttpPost("change-password")]
+
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto model)
+
+        {
+            if (!ModelState.IsValid)
+
+            {
+
+                return BadRequest(ModelState);
+
+            }
+
+            var user = await _userManager.FindByIdAsync(model.UserId);
+
+            IdentityResult result = await _userManager.ChangePasswordAsync(user,model.OldPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+
+            {
+
+                return BadRequest("Could not change password");
+
+            }
+
+            return Ok();
+
         }
     }
 }

@@ -71,5 +71,18 @@ namespace DonorTraceMobile
             }
 
         }
+
+        public static string Role
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("Role", SettingsDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("Role", value);
+            }
+
+        }
     }
 }

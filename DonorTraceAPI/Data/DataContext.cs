@@ -22,6 +22,9 @@ namespace DonorTraceAPI.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<OrganList> OrganLists { get; set; }
 
+        public DbSet<Facility> Facilities { get; set; }
+        public DbSet<MedicalOfficer> Officers  { get; set; }      
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

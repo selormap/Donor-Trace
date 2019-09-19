@@ -9,13 +9,14 @@ namespace DonorTraceAPI.Models
 {
     public class DonorOrgan
     {
-        [Key]
+        public int Id { get; set; }
+        [Required, StringLength(450)]
         public string UserId { get; set; }
-        public int BloodTypeId { get; set; }
-        public int OrganListId { get; set; }
+        public int? BloodTypeId { get; set; }
+        public int? OrganListId { get; set; }
 
-        public BloodType BloodType { get; set; }
-        public OrganList OrganList { get; set; }
+       // public BloodType BloodType { get; set; }
+      //  public OrganList OrganList { get; set; }
 
     }
 }

@@ -14,13 +14,23 @@ namespace DonorTraceMobile
 
             if (!string.IsNullOrEmpty(Settings.Token))
             {
-                Current.MainPage = new MasterPage();
+                if (Settings.Role == "Administrator")
+                {
+                    Current.MainPage = new AdminMaster();
+                }
+
+                if (Settings.Role == "Medical Officer")
+                {
+                    Current.MainPage = new FacilityMaster();
+                }
+                else
+                    Current.MainPage = new MasterPage();
 
             }
             else if (string.IsNullOrEmpty(Settings.Email) && string.IsNullOrEmpty(Settings.Password))
             {
-                Current.MainPage = new LoginPage();
-                // MainPage = new RegisterOrganPage();
+                MainPage = new NavigationPage(new LoginPage());
+                
             }
         }
 

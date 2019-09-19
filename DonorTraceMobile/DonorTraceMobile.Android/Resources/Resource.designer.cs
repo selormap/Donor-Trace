@@ -8690,10 +8690,13 @@ namespace DonorTraceMobile.Droid
 			public const int placeholderhead = 2131165501;
 			
 			// aapt resource value: 0x7F07013E
-			public const int tooltip_frame_dark = 2131165502;
+			public const int search = 2131165502;
 			
 			// aapt resource value: 0x7F07013F
-			public const int tooltip_frame_light = 2131165503;
+			public const int tooltip_frame_dark = 2131165503;
+			
+			// aapt resource value: 0x7F070140
+			public const int tooltip_frame_light = 2131165504;
 			
 			static Drawable()
 			{
@@ -14647,7 +14650,10 @@ namespace DonorTraceMobile.Droid
 		{
 			
 			// aapt resource value: 0x7F100000
-			public const int xamarin_essentials_fileprovider_file_paths = 2131755008;
+			public const int file_paths = 2131755008;
+			
+			// aapt resource value: 0x7F100001
+			public const int xamarin_essentials_fileprovider_file_paths = 2131755009;
 			
 			static Xml()
 			{

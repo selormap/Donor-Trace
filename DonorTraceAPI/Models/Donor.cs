@@ -40,7 +40,7 @@ namespace DonorTraceAPI.Models
         public enum Sex
         {
             Female,
-            Gender
+            Male
         }
 
 

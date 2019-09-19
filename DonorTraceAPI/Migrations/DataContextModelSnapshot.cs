@@ -15,7 +15,7 @@ namespace DonorTraceAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -96,20 +96,95 @@ namespace DonorTraceAPI.Migrations
 
             modelBuilder.Entity("DonorTraceAPI.Models.DonorOrgan", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BloodTypeId");
+
+                    b.Property<int?>("OrganListId");
+
                     b.Property<string>("UserId")
-                        .ValueGeneratedOnAdd();
+                        .IsRequired()
+                        .HasMaxLength(450);
 
-                    b.Property<int>("BloodTypeId");
-
-                    b.Property<int>("OrganListId");
-
-                    b.HasKey("UserId");
-
-                    b.HasIndex("BloodTypeId");
-
-                    b.HasIndex("OrganListId");
+                    b.HasKey("Id");
 
                     b.ToTable("DonorOrgans");
+                });
+
+            modelBuilder.Entity("DonorTraceAPI.Models.Facility", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(150);
+
+                    b.Property<string>("ContactNo")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("LastUpdated");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("RegistrationNo")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Facilities");
+                });
+
+            modelBuilder.Entity("DonorTraceAPI.Models.MedicalOfficer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactNo")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Department");
+
+                    b.Property<int>("FacilityId");
+
+                    b.Property<string>("Firstname")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityId");
+
+                    b.ToTable("Officers");
                 });
 
             modelBuilder.Entity("DonorTraceAPI.Models.OrganList", b =>
@@ -322,16 +397,11 @@ namespace DonorTraceAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DonorTraceAPI.Models.DonorOrgan", b =>
+            modelBuilder.Entity("DonorTraceAPI.Models.MedicalOfficer", b =>
                 {
-                    b.HasOne("DonorTraceAPI.Models.BloodType", "BloodType")
+                    b.HasOne("DonorTraceAPI.Models.Facility", "Facility")
                         .WithMany()
-                        .HasForeignKey("BloodTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DonorTraceAPI.Models.OrganList", "OrganList")
-                        .WithMany()
-                        .HasForeignKey("OrganListId")
+                        .HasForeignKey("FacilityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

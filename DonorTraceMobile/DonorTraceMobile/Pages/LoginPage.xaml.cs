@@ -23,22 +23,35 @@ namespace DonorTraceMobile.Pages
         private async void BtnLogin_Clicked(object sender, EventArgs e)
         {
 
+         
             act.IsRunning = true;
             ApiService apiServices = new ApiService();
             bool response = await apiServices.Login(EntEmail.Text, EntPassword.Text);
             if (!response)
             {
+               
                 act.IsRunning = false;
                 await DisplayAlert("Alert", "Login failed", "Cancel");
             }
             else
             {
+              
                 act.IsRunning = false;
+                if (Settings.Role == "Administrator")
+                {
+                    Application.Current.MainPage = new AdminMaster();
+                }
+                if (Settings.Role == "Medical Officer")
+                {
+                    Application.Current.MainPage = new FacilityMaster();
+                }
+                else
+                    Application.Current.MainPage = new MasterPage();
                 // Navigation.InsertPageBefore(new HomePage(), this);
                 // await Navigation.PopAsync();
-                Application.Current.MainPage = new MasterPage();
 
-              
+
+
             }
         }
 

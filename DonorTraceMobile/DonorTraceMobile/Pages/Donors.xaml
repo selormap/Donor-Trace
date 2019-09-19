@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils;assembly=DonorTraceMobile"
+             mc:Ignorable="d"
+             x:Class="DonorTraceMobile.Pages.Donors">
+   
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <SearchBar Placeholder="Search Donors" TextChanged="SearchBar_TextChanged" x:Name="BtnSearch" BackgroundColor="#F2F2F2"></SearchBar>
+            
+           
+            <ListView  SeparatorVisibility="None" ItemSelected="LstDonors_OnItemSelected" HasUnevenRows="True" x:Name="LstDonors">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="5" Margin="10" HasShadow="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.33*"></RowDefinition>
+                                <RowDefinition Height="0.33*"></RowDefinition>
+                                <RowDefinition Height="0.33*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+
+                                    <forms:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" LoadingPlaceholder="placeholderhead.png"
+                                                       DownsampleToViewSize="true" 
+                                                       Source="{Binding FullLogoPath}" CacheType="All">
+
+                                        <forms:CachedImage.Transformations>
+
+                                            <transformations:CircleTransformation />
+
+                                        </forms:CachedImage.Transformations>
+                                    </forms:CachedImage>
+
+<Label Text="{Binding Name}" Grid.Row="0" Grid.Column="1"></Label>
+                            <Label Text="{Binding Gender}" Grid.Row="1" Grid.Column="1"></Label>
+                            <Label Text="{Binding Region}" Grid.Row="2" Grid.Column="1"></Label>
+
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+       </ListView>
+            </StackLayout>
+            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="True" 
+                           Color="#45AC2B" x:Name="BusyIndicator"></ActivityIndicator>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
