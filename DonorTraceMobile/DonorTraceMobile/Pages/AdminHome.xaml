@@ -5,11 +5,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DonorTraceMobile.Pages.AdminHome">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Back office" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Welcome Administrator" FontSize="22" FontAttributes="Bold"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Button Text="Open Map" x:Name="BtnMap" Clicked="BtnMap_OnClicked"></Button>
+            <Button Text="Get Coordinates" x:Name="BtnGet" Clicked="BtnGet_OnClicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

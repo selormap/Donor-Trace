@@ -39,6 +39,10 @@ namespace DonorTraceAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                //.ConfigureApiBehaviorOptions(options =>
+                //    {
+                //        options.SuppressUseValidationProblemDetailsForInvalidModelStateResponses = true;
+                //    });
 
             services.AddAuthentication(option =>
             {
@@ -62,9 +66,9 @@ namespace DonorTraceAPI
             services.AddIdentity<User, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = false;
-                opts.Password.RequireDigit = false;
-               // opts.Password.RequireUppercase = false;
-                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireDigit = true;
+               opts.Password.RequireUppercase = true;
+                opts.Password.RequireNonAlphanumeric = true;
                 opts.Password.RequireLowercase = false;
 
             }).AddEntityFrameworkStores<DataContext>();

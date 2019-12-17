@@ -75,11 +75,11 @@ namespace DonorTraceAPI.Migrations
 
                     b.Property<DateTime>("LastUpdateDate");
 
-                    b.Property<int?>("Latitude");
+                    b.Property<double?>("Latitude");
 
                     b.Property<string>("Location");
 
-                    b.Property<int?>("Longitude");
+                    b.Property<double?>("Longitude");
 
                     b.Property<string>("Phone")
                         .IsRequired()

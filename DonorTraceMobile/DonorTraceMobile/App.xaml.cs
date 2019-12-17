@@ -11,6 +11,7 @@ namespace DonorTraceMobile
         public App()
         {
             InitializeComponent();
+            // MainPage = new NavigationPage(new MapPage());
 
             if (!string.IsNullOrEmpty(Settings.Token))
             {
@@ -19,7 +20,7 @@ namespace DonorTraceMobile
                     Current.MainPage = new AdminMaster();
                 }
 
-                if (Settings.Role == "Medical Officer")
+                else if (Settings.Role == "Medical Officer")
                 {
                     Current.MainPage = new FacilityMaster();
                 }
@@ -30,7 +31,7 @@ namespace DonorTraceMobile
             else if (string.IsNullOrEmpty(Settings.Email) && string.IsNullOrEmpty(Settings.Password))
             {
                 MainPage = new NavigationPage(new LoginPage());
-                
+
             }
         }
 

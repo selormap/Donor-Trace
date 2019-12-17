@@ -12,11 +12,12 @@ namespace DonorTraceAPI.Data
     {
         public static void Seed(DataContext dbContext, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
-           // Create default Users(if there are none)
-           // if (!dbContext.Users.Any())
+            // Create default Users(if there are none)
+            // if (!dbContext.Users.Any())
             //{
-               // CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
+             CreateUsers(dbContext, roleManager, userManager).GetAwaiter().GetResult();
             //}
+           
             CreateOfficers(dbContext).GetAwaiter().GetResult();
 
             // if(!dbContext.Facilities.Any()) CreateFacility(dbContext).GetAwaiter().GetResult();
@@ -57,7 +58,7 @@ namespace DonorTraceAPI.Data
             {
 
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = "sa16agw@herts.ac.uk",
+                UserName = "dtadmin",
                 Email = "sa16agw@herts.ac.uk",
                 CreatedDate = createdDate,
                 LastModifiedDate = lastModifiedDate,
@@ -134,7 +135,7 @@ namespace DonorTraceAPI.Data
                 Firstname = "John",
                 Lastname = "Manu",
                 Department = "GP",
-                FacilityId = 3,
+                FacilityId = 1,
                 ContactNo = "0273344096",
                 Created = DateTime.Now,
                 CreatedBy = "traceadmin"

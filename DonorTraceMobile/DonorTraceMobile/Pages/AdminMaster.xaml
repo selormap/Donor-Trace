@@ -36,9 +36,17 @@
                 <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.UserMd}"
                            FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
-                    <Label Text="Home" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <Label Text="Health Professionals" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer x:Name="TapDoctor" Tapped="TapDoctor_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.SignOutAlt}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="Logout"  FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapLogout" Tapped="TapLogout_OnTapped"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
 

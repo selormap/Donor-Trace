@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using DonorTraceMobile.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,11 +15,20 @@ namespace DonorTraceMobile.Pages
         public FacilityMaster()
         {
             InitializeComponent();
+            GetProfile(Settings.Id);
+        }
+
+        public async void GetProfile(string id)
+        {
+            ApiService apiService = new ApiService();
+            var officer = await apiService.GetOfficer(id);
+            LblName.Text = "Hello" + " " + officer.Name.ToUpper();
         }
 
         private void TapHome_OnTapped(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Detail = new NavigationPage(new FacilityHome());
+            IsPresented = false;
         }
 
         private void TapChangePass_OnTapped(object sender, EventArgs e)

@@ -6,22 +6,93 @@
              mc:Ignorable="d"
              xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils"
               xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
-             x:Class="DonorTraceMobile.Pages.BecomeDonor">
+              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+              xmlns:behaviors="clr-namespace:DonorTraceMobile.Behaviors;assembly=DonorTraceMobile"
+              xmlns:implementations="clr-namespace:DonorTraceMobile.Validators.Implementations;assembly=DonorTraceMobile"
+              x:Class="DonorTraceMobile.Pages.BecomeDonor">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Become a Donor" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-        <StackLayout Margin="20">
-            <Label Text="Become A Donor" FontSize="Medium" 
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+        <StackLayout Margin="18">
+            <StackLayout.Behaviors>
+                <behaviors:ValidationGroupBehavior x:Name="Form"/>
+            </StackLayout.Behaviors>
+                    <!--<Label Text="Become A Donor" FontSize="Medium" 
                 HorizontalOptions="CenterAndExpand">
-            </Label>
-            <Image x:Name="ImgProfile" Source="placeholderhead.png">
+            </Label>-->
+            <forms:CachedImage x:Name="ImgProfile" LoadingPlaceholder="placeholder.jpg" DownsampleToViewSize="true" 
+                               CacheType="All" Source="placeholderhead.png" HeightRequest="130" WidthRequest="130">
+
+                <forms:CachedImage.Transformations>
+
+                    <transformations:CircleTransformation />
+
+                </forms:CachedImage.Transformations>
+                <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
+                </forms:CachedImage.GestureRecognizers>
+
+            </forms:CachedImage>
+                    <!--<Image x:Name="ImgProfile" Source="placeholderhead.png">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
                 </Image.GestureRecognizers>
-            </Image>
-            <Entry Placeholder="Firstname" x:Name="EntFirstname"></Entry>
-            <Entry Placeholder="Lastname" x:Name="EntLastname"></Entry>
-            <Entry MaxLength="10" Placeholder="Phone" x:Name="EntPhone"></Entry>
-                <Picker Title="Select a region" x:Name="Reg" ItemDisplayBinding="{Binding Name}"></Picker>
+            </Image>-->
+            <Entry Placeholder="Firstname" x:Name="EntFirstname">
+                <Entry.Behaviors>
+                    <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                        <behaviors:ValidationBehavior.Validators>
+                            <implementations:RequiredValidator Message="Firstname is required" />
+                        </behaviors:ValidationBehavior.Validators>
+                    </behaviors:ValidationBehavior>
+                </Entry.Behaviors>
+                    </Entry>
+            <Entry Placeholder="Lastname" x:Name="EntLastname">
+                <Entry.Behaviors>
+                    <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                        <behaviors:ValidationBehavior.Validators>
+                            <implementations:RequiredValidator Message="Lastname is required" />
+                        </behaviors:ValidationBehavior.Validators>
+                    </behaviors:ValidationBehavior>
+                </Entry.Behaviors>
+                    </Entry>
+            <Entry MaxLength="10" Placeholder="Phone" x:Name="EntPhone" Keyboard="Telephone">
+                <Entry.Behaviors>
+                    <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                        <behaviors:ValidationBehavior.Validators>
+                            <implementations:RequiredValidator Message="Phone is required" />
+                        </behaviors:ValidationBehavior.Validators>
+                    </behaviors:ValidationBehavior>
+                </Entry.Behaviors>
+                    </Entry>
+                <Picker Title="Select a region" x:Name="Reg" ItemDisplayBinding="{Binding Name}">
+                    <!--<Picker.Behaviors>
+                        <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                      PropertyName="SelectedItem">
+                            <behaviors:ValidationBehavior.Validators>
+                                <implementations:RequiredValidator Message="Region is required" />
+                            </behaviors:ValidationBehavior.Validators>
+                        </behaviors:ValidationBehavior>
+                    </Picker.Behaviors>-->
+                    </Picker>
+            <!--<Entry Placeholder="Location" x:Name="EntLocation">
+                <Entry.Behaviors>
+                    <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                        <behaviors:ValidationBehavior.Validators>
+                            <implementations:RequiredValidator Message="Location is required" />
+                        </behaviors:ValidationBehavior.Validators>
+                    </behaviors:ValidationBehavior>
+                </Entry.Behaviors>
+                    </Entry>-->
                 <Label Text="Gender"></Label>
             <input:RadioButtonGroupView x:Name="RdGender"  Orientation="Horizontal">
                     <input:RadioButton Text="Male" Value="Male" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
@@ -62,27 +133,26 @@
                         </ListView>
                     </StackLayout>
 
-                <StackLayout Margin="0,20,0,0">
+                <StackLayout Margin="0,18,0,0">
 
-                    <Button BackgroundColor="#45AC2B" x:Name="BtnRegister" Clicked="BtnRegister_OnClicked" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Register" Visual="Material"></Button>
+                        <Button BackgroundColor="#45AC2B" x:Name="BtnRegister" Clicked="BtnRegister_OnClicked" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Register" Visual="Material" IsEnabled="{Binding Source={x:Reference Form}, Path=IsValid}"></Button>
+                   
         </StackLayout>
 
-            <StackLayout>
-                <AbsoluteLayout>
-
-
-                    <ActivityIndicator x:Name="act" AbsoluteLayout.LayoutBounds="0.5,1,70,70" 
-                                       AbsoluteLayout.LayoutFlags="XProportional, YProportional" 
-                                       Color="#45AC2B" BackgroundColor="Transparent" IsRunning="False">
-
-                    </ActivityIndicator>
-
-
-                </AbsoluteLayout>
-                </StackLayout>
+           
 </StackLayout>
           
         </ScrollView>
+            <ContentView IsVisible="False" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
 
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

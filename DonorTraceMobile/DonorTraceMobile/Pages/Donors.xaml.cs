@@ -36,7 +36,7 @@ namespace DonorTraceMobile.Pages
                 }
 
                 LstDonors.ItemsSource = DonorList;
-                BusyIndicator.IsRunning = false;
+                Overlay.IsVisible = false;
             }
 
             First = false;

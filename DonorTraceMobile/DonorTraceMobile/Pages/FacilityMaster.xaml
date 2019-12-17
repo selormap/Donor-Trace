@@ -13,9 +13,11 @@
             <StackLayout>
                 <Grid>
                     <BoxView BackgroundColor="#45AC2B" HeightRequest="150"></BoxView>
-                    <Label FontSize="Medium" Text="Welcome to Donor Trace" FontAttributes="Bold" TextColor="White" Margin="20,75,0,0"></Label>
-                    <Label FontSize="Medium" x:Name="LblName"></Label>
+                    <StackLayout>
+                    <Label FontSize="22" Text="Welcome to Donor Trace" FontAttributes="Bold" TextColor="White" Margin="20,60,0,0"></Label>
+                    <Label FontSize="Medium" x:Name="LblName" TextColor="MintCream" FontAttributes="Bold" Margin="20,25,5,0"></Label>
                     <Label FontSize="Medium" x:Name="LblFacility"></Label>
+                    </StackLayout>
                 </Grid>
                 <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.Home}"

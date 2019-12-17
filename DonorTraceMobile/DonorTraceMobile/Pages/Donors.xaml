@@ -8,20 +8,17 @@
              xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils;assembly=DonorTraceMobile"
              mc:Ignorable="d"
              x:Class="DonorTraceMobile.Pages.Donors">
-   
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Donors" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
             <StackLayout>
                 <SearchBar Placeholder="Search Donors" TextChanged="SearchBar_TextChanged" x:Name="BtnSearch" BackgroundColor="#F2F2F2"></SearchBar>
             
-           
+          
             <ListView  SeparatorVisibility="None" ItemSelected="LstDonors_OnItemSelected" HasUnevenRows="True" x:Name="LstDonors">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -37,7 +34,8 @@
                                 <RowDefinition Height="0.33*"></RowDefinition>
                                 <RowDefinition Height="0.33*"></RowDefinition>
                                 <RowDefinition Height="0.33*"></RowDefinition>
-                                </Grid.RowDefinitions>
+                               
+                                        </Grid.RowDefinitions>
 
 
                                     <forms:CachedImage Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" LoadingPlaceholder="placeholderhead.png"
@@ -61,9 +59,21 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
        </ListView>
+          
             </StackLayout>
-            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" IsRunning="True" 
-                           Color="#45AC2B" x:Name="BusyIndicator"></ActivityIndicator>
-        </Grid>
+            </ScrollView>
+
+
+            <ContentView IsVisible="True" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

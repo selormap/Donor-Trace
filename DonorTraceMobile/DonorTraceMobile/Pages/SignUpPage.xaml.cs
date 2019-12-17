@@ -22,17 +22,20 @@ namespace DonorTraceMobile.Pages
 
         private async void BtnSignUp_Clicked(object sender, EventArgs e)
         {
+            Overlay.IsVisible = true;
             ApiService apiService = new ApiService();
             HttpResponseMessage response = await apiService.RegisterUser(EntEmail.Text, EntPassword.Text, confirmPassword.Text);
             if (!response.IsSuccessStatusCode)
             {
-                
+                Overlay.IsVisible = false;
                 await DisplayAlert("Oops", "Something went wrong", "Cancel");
             }
             else
             {
+                Overlay.IsVisible = false;
                 await DisplayAlert("Success", "Your account has been created", "Ok");
-                await Navigation.PopAsync();
+                await Navigation.PushAsync(new LoginPage());
+               
             }
         }
 
@@ -40,8 +43,13 @@ namespace DonorTraceMobile.Pages
         {
             if (!string.IsNullOrWhiteSpace(confirmPassword.Text))
             {
-                pass._password = EntPassword.Text;
+                Pass._password = EntPassword.Text;
             }
+        }
+
+        private async void btnTest_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Success", "Your account has been created", "Ok");
         }
     }
 }

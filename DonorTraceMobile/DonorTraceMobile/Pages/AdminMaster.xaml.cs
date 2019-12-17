@@ -24,12 +24,25 @@ namespace DonorTraceMobile.Pages
 
         private void TapFacility_OnTapped(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Detail = new NavigationPage(new AddFacility());
+            IsPresented = false;
         }
 
         private void TapDoctor_OnTapped(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Detail = new NavigationPage(new AddOfficer());
+            IsPresented = false;
+        }
+
+        private void TapLogout_OnTapped(object sender, EventArgs e)
+        {
+           
+                Settings.Email = string.Empty;
+                Settings.Password = string.Empty;
+                Settings.Token = string.Empty;
+
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+            
         }
     }
 }

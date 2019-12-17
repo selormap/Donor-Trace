@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorTraceAPI", "DonorTraceAPI\DonorTraceAPI.csproj", "{C20ACE41-EEAE-4C3E-8E47-932E526B61CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DonorTraceAPI", "DonorTraceAPI\DonorTraceAPI.csproj", "{C20ACE41-EEAE-4C3E-8E47-932E526B61CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorTraceMobile.Android", "DonorTraceMobile\DonorTraceMobile.Android\DonorTraceMobile.Android.csproj", "{E9A4DB0B-C5F7-4B18-AF22-752FDB12D821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DonorTraceMobile", "DonorTraceMobile\DonorTraceMobile\DonorTraceMobile.csproj", "{5D7A11DA-3CB6-487B-8253-E8CB0004DD98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DonorTraceMobile", "DonorTraceMobile\DonorTraceMobile\DonorTraceMobile.csproj", "{5D7A11DA-3CB6-487B-8253-E8CB0004DD98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

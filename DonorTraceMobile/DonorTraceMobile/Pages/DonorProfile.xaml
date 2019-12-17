@@ -8,15 +8,20 @@
              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
              x:Class="DonorTraceMobile.Pages.DonorProfile">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Donor Profile" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
             <Grid.RowDefinitions>
               <RowDefinition Height="0.5*"></RowDefinition>
                 <RowDefinition Height="0.6*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" BackgroundColor="#F3FCEE" Padding="5">
+            <Grid Grid.Row="0" BackgroundColor="#F3FCEE" Padding="150,0,0,0">
               <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="100"></ColumnDefinition>
                   <ColumnDefinition Width="*"></ColumnDefinition>
@@ -26,7 +31,8 @@
                     <RowDefinition Height="0.3*"></RowDefinition>
                     <RowDefinition Height="0.5*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <forms:CachedImage x:Name="ImgProfile" LoadingPlaceholder="placeholder.jpg" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                <forms:CachedImage x:Name="ImgProfile" LoadingPlaceholder="placeholder.jpg" 
+                                   Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
 
                                    DownsampleToViewSize="true"
 
@@ -39,23 +45,25 @@
                     </forms:CachedImage.Transformations>
 
                 </forms:CachedImage>
-                <Label Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"  FontSize="Medium" x:Name="LblName"></Label>
+               
                
 
             </Grid>
-            <Grid Margin="5" Grid.Row="1">
+            <Grid Margin="35,35, 0, 0" Grid.Row="1" RowSpan="2">
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="0.8*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="0.8*"/>
-                    
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.04*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.35*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.45*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
 
@@ -63,13 +71,14 @@
                        FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" />-->
 
 
-               
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Name"  FontSize="Medium"></Label>
+                <Label Grid.Row="0" Grid.Column="1" TextColor="#45AC2B"  FontSize="Medium" x:Name="LblName"></Label>
+                <Label Grid.Row="1" FontSize="Medium" Grid.Column="0" Text="Blood Type"/>
+                <Label Grid.Row="1" TextColor="#45AC2B" Grid.Column="1" FontSize="Medium" x:Name="Lblblood"></Label>
+                <Label Grid.Row="2" FontSize="Medium" Grid.Column="0" Text="Organ(s)"/>
                 
-              
-                <Label Grid.Row="0" FontSize="Medium" Grid.Column="1" Text="Blood Type"/>
-                <Label Grid.Row="1" FontSize="Medium" Grid.Column="1" Text="Organ(s)"/>
-                <Label Grid.Row="0" TextColor="#45AC2B" Grid.Column="2" FontSize="Medium" x:Name="Lblblood"></Label>
-                <ListView Grid.Row="1" Grid.Column="2" x:Name="Lstvw" SeparatorVisibility="None">
+                <ListView Grid.Row="2" Grid.Column="1" x:Name="Lstvw" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                     <DataTemplate>
                            <ViewCell>
@@ -81,8 +90,14 @@
                     </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label Grid.Row="2" Grid.Column="2" TextColor="#45AC2B" FontSize="Medium" x:Name="LblLocation"></Label>
-                <Label Grid.Row="2" Grid.Column="1" Text="Location" FontSize="Medium" />
+
+                <Label Grid.Row="3" Grid.Column="0" Text="Region" FontSize="Medium" />
+                <Label Grid.Row="3" Grid.Column="1" TextColor="#45AC2B" FontSize="Medium" x:Name="LblRegion"></Label>
+
+                <Label Grid.Row="4" Grid.Column="1" TextColor="#45AC2B" FontSize="Medium" x:Name="LblLocation"></Label>
+                <Label Grid.Row="4" Grid.Column="0" Text="Location" FontSize="Medium" />
+
+              
 
             </Grid>
            
@@ -104,5 +119,16 @@
                 <Button Grid.Column="2" BackgroundColor="#45AC2B" TextColor="White" Text="Email" x:Name="BtnEmail" Clicked="BtnEmail_OnClicked"></Button>
             </Grid>
         </Grid>
+            <ContentView  x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

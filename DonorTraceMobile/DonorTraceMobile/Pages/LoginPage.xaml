@@ -11,9 +11,13 @@
              xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils;assembly=DonorTraceMobile"
 
              x:Class="DonorTraceMobile.Pages.LoginPage">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Login" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        
-        <Grid>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"></RowDefinition>
                 <RowDefinition Height="0.33*"></RowDefinition>
@@ -62,8 +66,8 @@
                         HeightRequest="40" x:Name="BtnLogin" BackgroundColor="#45AC2B" TextColor="White" Clicked="BtnLogin_Clicked"  IsEnabled="{Binding Source={x:Reference form}, Path=IsValid}"></Button>
             </StackLayout>
             <StackLayout Grid.Row="3" Padding="20" Orientation="Horizontal" HorizontalOptions="Center">
-                <Label Text="Don't have an account?" TextColor="#59474B"></Label>
-                <Label Text="Sign Up" TextColor="#45AC2B">
+                <Label Text="Don't have an account?" FontSize="18" TextColor="#59474B"></Label>
+                <Label Text="Sign Up" FontSize="18" TextColor="#45AC2B">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer x:Name="TapSignUp" Tapped="TapSignUp_Tapped"></TapGestureRecognizer>
                     </Label.GestureRecognizers>
@@ -71,24 +75,20 @@
             </StackLayout>
 
             
-               <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
               
-                  <ActivityIndicator x:Name="act" AbsoluteLayout.LayoutBounds="0.5,2,50,50" 
-                                     AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                     Color="#45AC2B" IsRunning="False">
-
-                  </ActivityIndicator>
-                    
-
-
-                   
-                       
-
-               </AbsoluteLayout>
 
         </Grid>
-       
-       
-       
+            <ContentView IsVisible="False" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
+
     </ContentPage.Content>
 </ContentPage>

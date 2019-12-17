@@ -31,12 +31,14 @@ namespace DonorTraceMobile.Pages
             var organType = await apiService.GetOrganType(id);
 
             ImgProfile.Source = donor.FullLogoPath;
-            LblName.Text = donor.FirstName +  " " + donor.LastName;
+            LblName.Text = donor.Name;
             LblLocation.Text = donor.Location;
             Lblblood.Text = bloodType.BloodType;
+            LblRegion.Text = donor.Region;
             Lstvw.ItemsSource = organType;
             _email = donor.Email;
             _number = donor.Phone;
+            Overlay.IsVisible = false;
         }
 
         private void BtnCall_OnClicked(object sender, EventArgs e)
@@ -52,7 +54,7 @@ namespace DonorTraceMobile.Pages
 
         private void BtnEmail_OnClicked(object sender, EventArgs e)
         {
-            var message = new EmailMessage("", "", Settings.Email);
+            var message = new EmailMessage("Blood and Organ Donation", "", _email);
             Email.ComposeAsync(message);
         }
     }

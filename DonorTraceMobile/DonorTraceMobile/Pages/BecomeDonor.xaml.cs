@@ -5,12 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.Content;
 using DonorTraceMobile.Helpers;
 using Plugin.InputKit;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using Plugin.Settings;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Android.Graphics;
+using Android.Views;
+using Caliburn.Micro;
+using Xamarin.Essentials;
+using Point = System.Drawing.Point;
 
 namespace DonorTraceMobile.Pages
 {
@@ -40,6 +47,8 @@ namespace DonorTraceMobile.Pages
         {
             await CrossMedia.Current.Initialize();
 
+
+
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
             {
                 await DisplayAlert("No Camera", ":( No camera available.", "OK");
@@ -48,6 +57,7 @@ namespace DonorTraceMobile.Pages
 
             _file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
             {
+                
                 PhotoSize = PhotoSize.Custom,
                 CustomPhotoSize = 30, //Resize to 90% of original
                 CompressionQuality = 60,
@@ -101,31 +111,36 @@ namespace DonorTraceMobile.Pages
         private async void BtnRegister_OnClicked(object sender, EventArgs e)
         {
 
-            act.IsRunning = true;
+            Overlay.IsVisible = true;
 
             if (_file == null)
             {
-                act.IsRunning = false;
+                Overlay.IsVisible = false;
                 await DisplayAlert("Image Upload", "Upload your image", "Ok");
                 return;
             }
 
             if (!ChkBlood.IsChecked && !ChkOrgan.IsChecked)
             {
-                act.IsRunning = false;
+                Overlay.IsVisible = false;
                 await DisplayAlert("Donate Option", "Select at least one donation option", "Ok");
                 return;
             }
 
             if (EntBloodGroup.SelectedIndex == -1 && _organList.Count == 0)
             {
-                act.IsRunning = false;
+                Overlay.IsVisible = false;
                 await DisplayAlert("", "Select at least a blood group or an organ", "OK");
             }
 
 
             var imageArray = FilesHelper.ReadFully(_file.GetStream());
             _file.Dispose();
+
+            var request = new GeolocationRequest(GeolocationAccuracy.High);
+            var location = await Geolocation.GetLocationAsync(request);
+            var placemarks = await Geocoding.GetPlacemarksAsync(location.Latitude, location.Longitude);
+            var placemark = placemarks?.FirstOrDefault();
             var donor = new Donor()
             {
                 Id = Settings.Id,
@@ -134,9 +149,9 @@ namespace DonorTraceMobile.Pages
                 Phone = EntPhone.Text,
                 Gender = RdGender.SelectedItem.ToString(),
                 RegionId = ((RegionModel)Reg.SelectedItem).Id,
-                Location = null,
-                Latitude = null,
-                Longitude = null,
+                Location = "Kwabenya",//placemark.AdminArea,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude,
                 Email = Settings.Email,
                 ImageArray = imageArray
 
@@ -148,7 +163,7 @@ namespace DonorTraceMobile.Pages
 
             if (!response)
             {
-                act.IsRunning = false;
+                Overlay.IsVisible = false;
                 await DisplayAlert("Oops", "Something went wrong", "Cancel");
             }
 
@@ -177,13 +192,15 @@ namespace DonorTraceMobile.Pages
                     
                 }
 
-                act.IsRunning = false;
-                    var result = await DisplayAlert("Success", "You are now a registered donor", "Ok", "Cancel");
-                    if (result == true)
-                    {
-                        await Navigation.PushModalAsync(new HomePage());
-                    }
-                
+                Overlay.IsVisible = false;
+                //  var result = await DisplayAlert("Success", "You are now a registered donor", "Ok");
+                // if (result == true)
+                // {
+                await DisplayAlert("Success", "You are now a registered donor", "Ok");
+                // await Navigation.PushAsync(new HomePage());
+                Application.Current.MainPage = new MasterPage();
+                // }
+
             }
         }
 
@@ -203,5 +220,7 @@ namespace DonorTraceMobile.Pages
 
             }
         }
+
+      
     }
 }

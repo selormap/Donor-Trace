@@ -25,8 +25,10 @@ namespace DonorTraceMobile.Behaviors
             foreach (IValidator validator in Validators)
             {
                 bool result = validator.Check(_view.GetType()
-                                       .GetProperty(PropertyName)
-                                       .GetValue(_view) as string);
+                                       .GetProperty(PropertyName)?.GetValue(_view) as string);
+
+              
+
                 isValid = isValid && result;
 
                 if (!result)

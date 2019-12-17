@@ -27,7 +27,7 @@ namespace DonorTraceMobile.Models
             {
 
 
-                // return String.Format("https://dtrace.azurewebsites.net/{0}", ImagePath.Substring(2)); 
+               // return String.Format("https://dtrace.azurewebsites.net/{0}", ImagePath.Substring(2)); 
                 return String.Format("http://10.0.2.2:5000/{0}", ImagePath.Substring(2));
             }
         }

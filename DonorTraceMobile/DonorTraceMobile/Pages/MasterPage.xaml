@@ -10,11 +10,13 @@
 
     <MasterDetailPage.Master>
         <ContentPage Title="Master">
-           
             <StackLayout>
                 <Grid>
                     <BoxView BackgroundColor="#45AC2B" HeightRequest="150"></BoxView>
-                    <Label FontSize="Medium" Text="Welcome to Donor Trace" FontAttributes="Bold" TextColor="White" Margin="20,75,0,0"></Label>
+<StackLayout>
+                    <Label FontSize="22" Text="Welcome to Donor Trace" FontAttributes="Bold" TextColor="White" Margin="20,60,0,0"></Label>
+                    <Label FontSize="Medium" FontAttributes="Bold" TextColor="MintCream"  x:Name="LblName" Margin="20,25,5,0"></Label>
+</StackLayout>
                 </Grid>
                 <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.Home}"
@@ -32,16 +34,24 @@
                         <TapGestureRecognizer x:Name="TapChangePass" Tapped="TapChangePass_Tapped"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
+                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10" x:Name="StackProfile">
+                    <Label Text="{x:Static fontawesome:FontAwesomeIcons.User}"
+                           FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
+                    <Label Text="My Profile" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="TapProfile" Tapped="TapProfile_OnTapped"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
 
-                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10" x:Name="StackDonors">
+                <!--<StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10" x:Name="StackDonors">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.Users}"
                            FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
                     <Label Text="Donors" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer x:Name="TapDonors" Tapped="TapDonors_OnTapped"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
+                </StackLayout>-->
+                <StackLayout x:Name="StkDonors" Orientation="Horizontal" Margin="20,20,0,0" Spacing="10">
                     <Label Text="{x:Static fontawesome:FontAwesomeIcons.UserPlus}"
         FontFamily="{StaticResource FontAwesomeSolid}" FontSize="Medium" TextColor="#45AC2B" />
                     <Label Text="Become a Donor" FontSize="Medium" Margin="-5,-2,0,0" VerticalOptions="Center" TextColor="Black"></Label>

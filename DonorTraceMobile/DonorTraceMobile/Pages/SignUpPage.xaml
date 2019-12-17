@@ -8,8 +8,12 @@
              xmlns:Behaviors="clr-namespace:DonorTraceMobile.Behaviors"
              xmlns:fontawesome="clr-namespace:DonorTraceMobile.Utils;assembly=DonorTraceMobile"
              x:Class="DonorTraceMobile.Pages.SignUpPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Register" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"></RowDefinition>
                 <RowDefinition Height="0.30*"></RowDefinition>
@@ -26,11 +30,11 @@
             </StackLayout>
             <StackLayout Grid.Row="2" Margin="40,0,40,0" VerticalOptions="CenterAndExpand">
                 <StackLayout.Behaviors>
-                    <Behaviors:ValidationGroupBehavior x:Name="form"/>
+                    <Behaviors:ValidationGroupBehavior x:Name="Form"/>
                 </StackLayout.Behaviors>
                 <Entry Placeholder="Email" PlaceholderColor="#707070" x:Name="EntEmail">
                     <Entry.Behaviors>
-                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                        <Behaviors:ValidationBehavior Group="{x:Reference Form}" 
                                               PropertyName="Text">
                             <Behaviors:ValidationBehavior.Validators>
                                 <Validators:RequiredValidator Message="Email is required" />
@@ -41,28 +45,51 @@
                 </Entry>
                 <Entry Placeholder="Password" PlaceholderColor="#707070" x:Name="EntPassword" IsPassword="True">
                     <Entry.Behaviors>
-                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                        <Behaviors:ValidationBehavior Group="{x:Reference Form}" 
                                               PropertyName="Text">
                             <Behaviors:ValidationBehavior.Validators>
                                 <Validators:RequiredValidator Message="Password is required" />
-                            </Behaviors:ValidationBehavior.Validators>
+                                <Validators:FormatValidator Format="(?=^.{8,10}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$" Message="Password requires at least one upper case, digit, special character and must be between 8-10 characters long">
+
+                                </Validators:FormatValidator>
+                                </Behaviors:ValidationBehavior.Validators>
                         </Behaviors:ValidationBehavior>
                     </Entry.Behaviors>
                 </Entry>
                 <Entry Placeholder="Confirm Password" TextChanged="ConfirmPassword_TextChanged" PlaceholderColor="#707070" x:Name="confirmPassword" IsPassword="True">
                     <Entry.Behaviors>
-                        <Behaviors:ValidationBehavior Group="{x:Reference form}" 
+                        <Behaviors:ValidationBehavior Group="{x:Reference Form}" 
                                               PropertyName="Text">
                             <Behaviors:ValidationBehavior.Validators>
                                 <Validators:RequiredValidator Message="Confirm Password is required" />
-                                <Validators:CompareValidator x:Name="pass"></Validators:CompareValidator>
-                            </Behaviors:ValidationBehavior.Validators>
+                                <Validators:CompareValidator x:Name="Pass"></Validators:CompareValidator>
+                               
+                                </Behaviors:ValidationBehavior.Validators>
                         </Behaviors:ValidationBehavior>
                        
                     </Entry.Behaviors>
                 </Entry>
-                <Button Text="Sign Up" Padding="0, 5, 0, 0" BackgroundColor="#45AC2B" CornerRadius="30" HeightRequest="40" x:Name="BtnSignUp" Clicked="BtnSignUp_Clicked" IsEnabled="{Binding Source={x:Reference form}, Path=IsValid}"></Button>
-            </StackLayout>
-        </Grid>
+                <!--<StackLayout Margin="0, 15,0,0">-->
+                   
+                
+                <!--</StackLayout>-->
+                   
+                </StackLayout>
+                <StackLayout Grid.Row="3" Margin="40,0,40,0" VerticalOptions="CenterAndExpand">
+                    <Button Text="Sign Up" TextColor="White" BackgroundColor="#45AC2B" CornerRadius="30" HeightRequest="40" x:Name="BtnSignUp" Clicked="BtnSignUp_Clicked" IsEnabled="{Binding Source={x:Reference Form}, Path=IsValid}"></Button>
+                </StackLayout>
+
+            </Grid>
+            <ContentView IsVisible="False" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+            </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

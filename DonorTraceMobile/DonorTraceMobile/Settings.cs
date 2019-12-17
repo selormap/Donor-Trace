@@ -76,11 +76,11 @@ namespace DonorTraceMobile
         {
             get
             {
-                return AppSettings.GetValueOrDefault("Role", SettingsDefault);
+                return AppSettings.GetValueOrDefault("role", SettingsDefault);
             }
             set
             {
-                AppSettings.AddOrUpdateValue("Role", value);
+                AppSettings.AddOrUpdateValue("role", value);
             }
 
         }
