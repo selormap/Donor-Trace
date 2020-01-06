@@ -14,6 +14,9 @@ namespace DonorTraceMobile.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string BloodType { get; set; }
+        public int RegionId { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public string Location { get; set; }
         public string Region { get; set; }
         public string Gender  { get; set; }
@@ -27,8 +30,8 @@ namespace DonorTraceMobile.Models
             {
 
 
-               // return String.Format("https://dtrace.azurewebsites.net/{0}", ImagePath.Substring(2)); 
-                return String.Format("http://10.0.2.2:5000/{0}", ImagePath.Substring(2));
+                return String.Format("https://dtrace.azurewebsites.net/{0}", ImagePath.Substring(2)); 
+               // return String.Format("http://10.0.2.2:5000/{0}", ImagePath.Substring(2));
             }
         }
     }

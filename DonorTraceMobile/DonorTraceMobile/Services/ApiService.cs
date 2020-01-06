@@ -15,8 +15,8 @@ namespace DonorTraceMobile.Services
     public class ApiService
     {
 
-        //string apiUrl = "https://dtrace.azurewebsites.net/api/";
-        string apiUrl = "http://10.0.2.2:5000/api/";
+        string apiUrl = "https://dtrace.azurewebsites.net/api/";
+       // string apiUrl = "http://10.0.2.2:5000/api/";
         
         public async Task<HttpResponseMessage> RegisterUser(string email, string password, string confirmPassword)
         {
@@ -101,6 +101,13 @@ namespace DonorTraceMobile.Services
             return JsonConvert.DeserializeObject<List<RegionModel>>(json);
         }
 
+        public async Task<List<FacilityModel>> Facilities()
+        {
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync(apiUrl + "repo/facilities");
+            return JsonConvert.DeserializeObject<List<FacilityModel>>(json);
+        }
+
         public async Task<List<FacilityList>> GetFacilities()
         {
             var httpClient = new HttpClient();
@@ -140,6 +147,16 @@ namespace DonorTraceMobile.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> UpdateDonor(string id, Donor donor)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(donor);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PutAsync(apiUrl + "repo/donor/" + id, content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> AddOrganOption(OrganOption option)
         {
             var httpClient = new HttpClient();
@@ -168,6 +185,35 @@ namespace DonorTraceMobile.Services
             var response = await httpClient.PostAsync(apiUrl + "repo/officer", content);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
             return response.IsSuccessStatusCode;
+        }
+        public async Task<bool> AddCampaign(CampaignModel campaign)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(campaign);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/campaign", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task SendSms(CampaignModel model)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/campaign-sms", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            //return response.IsSuccessStatusCode;
+        }
+
+        public async Task FacilityUserSms(OfficerModel model)
+        {
+            var httpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(model);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(apiUrl + "repo/send-sms", content);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            //return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> AddBloodOrganOption(BloodOrganOption option)
@@ -210,6 +256,21 @@ namespace DonorTraceMobile.Services
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
             var response = await httpClient.GetStringAsync(apiUrl + "repo/officer/" + id);
             return JsonConvert.DeserializeObject<OfficerModel>(response);
+        }
+        public async Task<List<OfficerModel>> GetOfficers()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/officers/");
+            return JsonConvert.DeserializeObject<List<OfficerModel>>(response);
+        }
+
+        public async Task<List<CampaignModel>> GetCampaigns()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", Settings.Token);
+            var response = await httpClient.GetStringAsync(apiUrl + "repo/campaigns/");
+            return JsonConvert.DeserializeObject<List<CampaignModel>>(response);
         }
 
         public async Task<BloodOption> GetBloodType(string id)

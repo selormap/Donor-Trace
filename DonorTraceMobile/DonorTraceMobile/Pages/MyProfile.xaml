@@ -18,9 +18,9 @@
                 <RowDefinition Height="0.5*"></RowDefinition>
                 <RowDefinition Height="0.6*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Padding="150, 0 , 0, 0">
+            <Grid Grid.Row="0" Padding="150, 10 , 0, 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -51,14 +51,14 @@
             <Grid Margin="5" Grid.Row="1"  Grid.RowSpan="2">
                 <Grid.RowDefinitions>
 
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
+                    <RowDefinition Height="0.4*"/>
 
                 </Grid.RowDefinitions>
 
@@ -96,11 +96,16 @@
                 <Label Grid.Row="6" Grid.Column="2" TextColor="#45AC2B" FontSize="Medium" x:Name="LblRegion"></Label>
                 <Label Grid.Row="7" Grid.Column="1" Text="Location" FontSize="Medium" />
                 <Label Grid.Row="7" Grid.Column="2" TextColor="#45AC2B" FontSize="Medium" x:Name="LblLocation"></Label>
-               
 
-            </Grid>
+                    <StackLayout Grid.Row="8" Grid.ColumnSpan="3">
+                        <Button x:Name="btnShare" Clicked="btnShare_Clicked" Text="Share Status" TextColor="White" BackgroundColor="#45AC2B" CornerRadius="30"></Button>
+                    </StackLayout>
 
-           
+                </Grid>
+
+                
+                    
+                
             
         </Grid>
             <ContentView IsVisible="True" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 

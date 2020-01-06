@@ -149,7 +149,7 @@ namespace DonorTraceMobile.Pages
                 Phone = EntPhone.Text,
                 Gender = RdGender.SelectedItem.ToString(),
                 RegionId = ((RegionModel)Reg.SelectedItem).Id,
-                Location = "Kwabenya",//placemark.AdminArea,
+                Location = placemark.Locality,
                 Latitude = location.Latitude,
                 Longitude = location.Longitude,
                 Email = Settings.Email,

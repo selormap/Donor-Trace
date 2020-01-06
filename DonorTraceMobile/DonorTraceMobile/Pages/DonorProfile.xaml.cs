@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DonorTraceMobile.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 using Xamarin.Forms.Xaml;
 
 namespace DonorTraceMobile.Pages
@@ -38,6 +39,8 @@ namespace DonorTraceMobile.Pages
             Lstvw.ItemsSource = organType;
             _email = donor.Email;
             _number = donor.Phone;
+            LMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(donor.Latitude, donor.Longitude),
+               Distance.FromMiles(1)));
             Overlay.IsVisible = false;
         }
 

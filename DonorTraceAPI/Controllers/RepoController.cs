@@ -24,6 +24,7 @@ namespace DonorTraceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class RepoController : ControllerBase
     {
         private readonly DataContext _db;
@@ -85,6 +86,22 @@ namespace DonorTraceAPI.Controllers
             return Ok(officer);
         }
 
+        [HttpGet("officers")]
+        public async Task<IEnumerable<OfficerDto>> GetFacilityAccounts()
+        {
+            var officers = await (_db.Officers.Select(d => new OfficerDto
+            {
+                Id = d.Id,
+                Name = d.Firstname + " " + d.Lastname,
+                ContactNo = d.ContactNo,
+                Facility = d.Facility.Name,
+                UserName = d.UserName
+            })).ToListAsync();
+
+            //return _db.Officers.ToList();
+            return officers;
+        }
+
         [HttpGet("donors/{id}")]
         public async Task<IActionResult> GetDonor(string id)
         {
@@ -94,10 +111,15 @@ namespace DonorTraceAPI.Controllers
                 {
                     Id = n.Id,
                     Name = n.FirstName + " " + n.LastName,
+                   Firstname = n.FirstName,
+                   Lastname = n.LastName,
                     Email = n.Email,
                     Gender = ((Donor.Sex)n.Gender).ToString(),
                     Location = n.Location,
+                    Latitude = n.Latitude,
+                    Longitude = n.Longitude,
                     Region = n.Region.Name,
+                    RegionId = n.RegionId,
                     Phone = n.Phone,
                     ImagePath = n.ImagePath
 
@@ -175,6 +197,12 @@ namespace DonorTraceAPI.Controllers
         {
             return _db.BloodTypes;
 
+        }
+
+        [HttpGet("campaigns")]
+        public IEnumerable<Models.Campaign> GetCampaigns()
+        {
+            return _db.Campaigns.OrderByDescending(c => c.CreatedDate);
         }
 
         [HttpGet("regions")]
@@ -255,6 +283,96 @@ namespace DonorTraceAPI.Controllers
             return BadRequest("Could not save donor information"); //failed 
         }
 
+        [HttpPut("donor/{id}")]
+        public async Task<IActionResult> UpdateDonor(string Id, DonorDto donor)
+        {
+            // check if model state is valid
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (donor.ImageArray != null)
+            {
+                //upload camera image to contents folder
+                var stream = new MemoryStream(donor.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "~/Contents/Donors";
+                var fullPath = $"{folder}/{file}";
+                var response = FilesHelper.UploadPhoto(stream, file);
+                if (response)
+                {
+                    donor.ImagePath = fullPath;
+                }
+                // save donor info to database
+                DateTime now = DateTime.Now;
+                var user = await _db.Donors.SingleOrDefaultAsync(d => d.Id == Id);
+
+                user.FirstName = donor.FirstName;
+                user.LastName = donor.LastName;
+                user.Phone = donor.Phone;
+                user.Gender = donor.Gender;
+                user.RegionId = donor.RegionId;
+                user.Location = donor.Location;
+                user.Longitude = donor.Longitude;
+                user.Latitude = donor.Latitude;
+                user.ImagePath = donor.ImagePath;
+                user.CreatedDate = now;
+                user.LastUpdateDate = now;
+            }
+            else
+            {
+                DateTime now = DateTime.Now;
+                var user = await _db.Donors.SingleOrDefaultAsync(d => d.Id == Id);
+
+                user.FirstName = donor.FirstName;
+                user.LastName = donor.LastName;
+                user.Phone = donor.Phone;
+                user.Gender = donor.Gender;
+                user.RegionId = donor.RegionId;
+                user.Location = donor.Location;
+                user.Longitude = donor.Longitude;
+                user.Latitude = donor.Latitude;
+                user.CreatedDate = now;
+                user.LastUpdateDate = now;
+            }
+            
+           // _db.Donors.Add(user);
+            if (await _db.SaveChangesAsync() > 0)
+            {
+                return Ok(); //action successful
+            }
+            return BadRequest("Could not save donor information"); //failed 
+        }
+
+        [HttpPost("campaign")]
+        public async Task<IActionResult> AddCampaign(CampaignDto model)
+        {
+            //check if model state is not valid
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            //Create campaign object
+
+            //Create facility object
+            var programme = new Models.Campaign
+            {
+                 Organization = model.Organization,
+                Description = model.Description,
+                Location = model.Location,
+                EventDate = model.EventDate,
+                CreatedDate = DateTime.Now
+            };
+            //save facility to database
+            _db.Campaigns.Add(programme);
+             if (await _db.SaveChangesAsync() > 0)
+           // CampaignSms("Donor Trace", "0242229571");
+                return Ok(); // save operation successful
+
+            return BadRequest("Could not save campaign"); // save operation failed
+        }
+
         [HttpPost("facility")]
         public async Task<IActionResult> AddFacility(FacilityDto model)
         {
@@ -324,7 +442,7 @@ namespace DonorTraceAPI.Controllers
                 _db.Officers.Add(medical);
                 if (await _db.SaveChangesAsync() > 0)
                 {
-                    SendSms(model.UserName, password, "Donor Trace", model.ContactNo);
+                  //  SendSms(model.UserName, password, "Donor Trace", model.ContactNo);
                     return Ok();
 
                 }
@@ -336,7 +454,7 @@ namespace DonorTraceAPI.Controllers
         }
 
         [HttpPost("sendsms")]
-        public void Sms(SmsDto sms)
+        public async Task<IActionResult> Sms(SmsDto sms)
         {
             string clientId = _config.GetValue<string>("Sms:ClientId");
             string clientSecret = _config.GetValue<string>("Sms:ClientSecret");
@@ -347,10 +465,13 @@ namespace DonorTraceAPI.Controllers
 
             var host = new ApiHost(new BasicAuth(clientId, clientSecret));
             var messageApi = new MessagingApi(host);
-            MessageResponse msg = messageApi.SendQuickMessage("Donor Trace", sms.To, builder.ToString(), true);
-            //return Ok(msg);
+           
+            MessageResponse msg = messageApi.SendQuickMessage("Donor Trace", sms.To, builder.ToString(), false);
+           
+            return Ok(msg.Status);
         }
-        public void SendSms(string username, string password , string from, string to)
+        [HttpPost("send-sms")]
+        public void SendSms(OfficerDto officer)
         {
             string clientId = _config.GetValue<string>("Sms:ClientId");
             string clientSecret = _config.GetValue<string>("Sms:ClientSecret");
@@ -358,15 +479,46 @@ namespace DonorTraceAPI.Controllers
             StringBuilder builder = new StringBuilder();
             builder.Append("You have been registered on the Donor Trace Mobile App");
             builder.AppendLine();
-            builder.Append("Username: " + " " + username);
+            builder.Append("Username: " + " " + officer.UserName);
             builder.AppendLine();
-            builder.Append("Password: " + " " + password);
+            builder.Append("Password: " + " " + officer.Password);
 
             var host = new ApiHost(new BasicAuth(clientId, clientSecret));
             var messageApi = new MessagingApi(host);
-            MessageResponse msg = messageApi.SendQuickMessage(from, to, builder.ToString(), true);
+            MessageResponse msg = messageApi.SendQuickMessage("Donor Trace", officer.ContactNo, builder.ToString(), true);
 
 
+        }
+
+        [HttpPost("campaign-sms")]
+        public void CampaignSms(CampaignDto model)
+        {
+           // var phoneNumbers = from p in _db.Donors
+                               //select new { p.Phone };
+
+            string clientId = _config.GetValue<string>("Sms:ClientId");
+            string clientSecret = _config.GetValue<string>("Sms:ClientSecret");
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append("Donor Trace Campaign");
+            builder.AppendLine();
+            builder.Append("Organization: " + " " + model.Organization);
+            builder.AppendLine();
+            builder.Append("Description: " + " " + model.Description);
+            builder.AppendLine();
+            builder.Append("Location: " + " " + model.Location);
+            builder.AppendLine();
+            builder.Append("Date: " + " " + model.EventDate);
+
+
+            var host = new ApiHost(new BasicAuth(clientId, clientSecret));
+            var messageApi = new MessagingApi(host);
+           // foreach (var p in phoneNumbers)
+           // {
+                MessageResponse msg = messageApi.SendQuickMessage("Donor Trace", "0242229571", builder.ToString(), true);
+            //}
+
+           // return Ok();
         }
     }
 }

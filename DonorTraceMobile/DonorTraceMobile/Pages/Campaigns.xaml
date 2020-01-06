@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="DonorTraceMobile.Pages.Campaigns">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Campaigns" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout>
+                    <SearchBar Placeholder="Search Campaigns" TextChanged="SearchBar_TextChanged" x:Name="BtnSearch" BackgroundColor="#F2F2F2"></SearchBar>
+                    <ListView  SeparatorVisibility="None" ItemSelected="LstCampaigns_ItemSelected"  HasUnevenRows="True" x:Name="LstCampaigns">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame Padding="5" Margin="10" HasShadow="True">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="100*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="0.33*"></RowDefinition>
+                                                <RowDefinition Height="0.33*"></RowDefinition>
+                                                <RowDefinition Height="0.33*"></RowDefinition>
+                                                <RowDefinition Height="0.33*"></RowDefinition>
+
+                                            </Grid.RowDefinitions>
+                                            <Label FontAttributes="Bold" FontSize="Small" Text="{Binding Organization}" Grid.Row="0" Grid.Column="0"></Label>
+                                            <Label Text="{Binding Description}" Grid.Row="1" Grid.Column="0"></Label>
+
+                                            <Label Text="{Binding Location}" Grid.Row="2" Grid.Column="0"></Label>
+                                            <Label Text="{Binding EventDate, StringFormat='{0:MMMM dd, yyyy hh:mm tt}'}" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0"></Label>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
+            </ScrollView>
+            <ContentView IsVisible="True" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -44,5 +44,29 @@ namespace DonorTraceMobile.Pages
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             
         }
+
+        private void TapCampaign_Tapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new AddCampaign());
+            IsPresented = false;
+        }
+
+        private void TapFacilities_Tapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new Facilities());
+            IsPresented = false;
+        }
+
+        private void TapUsers_Tapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new FacilityUsers());
+            IsPresented = false;
+        }
+
+        private void TapCampaigns_Tapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new Campaigns());
+            IsPresented = false;
+        }
     }
 }

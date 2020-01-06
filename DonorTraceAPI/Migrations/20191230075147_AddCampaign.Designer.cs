@@ -4,14 +4,16 @@ using DonorTraceAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DonorTraceAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191230075147_AddCampaign")]
+    partial class AddCampaign
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,18 +63,13 @@ namespace DonorTraceAPI.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
                     b.Property<DateTime>("EventDate");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<string>("Location");
 
-                    b.Property<string>("Organization")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<string>("Organization");
 
                     b.HasKey("Id");
 

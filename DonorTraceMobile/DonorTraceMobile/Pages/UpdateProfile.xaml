@@ -4,12 +4,154 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+              xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+              xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+              xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+              xmlns:behaviors="clr-namespace:DonorTraceMobile.Behaviors;assembly=DonorTraceMobile"
+              xmlns:implementations="clr-namespace:DonorTraceMobile.Validators.Implementations;assembly=DonorTraceMobile"
              x:Class="DonorTraceMobile.Pages.UpdateProfile">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Update Your Profile" Order="Primary"></ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout Margin="18">
+                    <StackLayout.Behaviors>
+                        <behaviors:ValidationGroupBehavior x:Name="Form"/>
+                    </StackLayout.Behaviors>
+                    <!--<Label Text="Become A Donor" FontSize="Medium" 
+                HorizontalOptions="CenterAndExpand">
+            </Label>-->
+                    <forms:CachedImage x:Name="ImgProfile" LoadingPlaceholder="placeholder.jpg" DownsampleToViewSize="true" 
+                               CacheType="All" Source="placeholderhead.png" HeightRequest="130" WidthRequest="130">
+
+                        <forms:CachedImage.Transformations>
+
+                            <transformations:CircleTransformation />
+
+                        </forms:CachedImage.Transformations>
+                        <forms:CachedImage.GestureRecognizers>
+                            <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
+                        </forms:CachedImage.GestureRecognizers>
+
+                    </forms:CachedImage>
+                    <!--<Image x:Name="ImgProfile" Source="placeholderhead.png">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="TapCamera" Tapped="TapCamera_Tapped"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>-->
+                    <Entry Placeholder="Firstname" x:Name="EntFirstname">
+                        <Entry.Behaviors>
+                            <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                                <behaviors:ValidationBehavior.Validators>
+                                    <implementations:RequiredValidator Message="Firstname is required" />
+                                </behaviors:ValidationBehavior.Validators>
+                            </behaviors:ValidationBehavior>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry Placeholder="Lastname" x:Name="EntLastname">
+                        <Entry.Behaviors>
+                            <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                                <behaviors:ValidationBehavior.Validators>
+                                    <implementations:RequiredValidator Message="Lastname is required" />
+                                </behaviors:ValidationBehavior.Validators>
+                            </behaviors:ValidationBehavior>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry MaxLength="10" Placeholder="Phone" x:Name="EntPhone" Keyboard="Telephone">
+                        <Entry.Behaviors>
+                            <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                                <behaviors:ValidationBehavior.Validators>
+                                    <implementations:RequiredValidator Message="Phone is required" />
+                                </behaviors:ValidationBehavior.Validators>
+                            </behaviors:ValidationBehavior>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Picker Title="Select a region" x:Name="Reg" ItemDisplayBinding="{Binding Name}">
+                        <!--<Picker.Behaviors>
+                        <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                      PropertyName="SelectedItem">
+                            <behaviors:ValidationBehavior.Validators>
+                                <implementations:RequiredValidator Message="Region is required" />
+                            </behaviors:ValidationBehavior.Validators>
+                        </behaviors:ValidationBehavior>
+                    </Picker.Behaviors>-->
+                    </Picker>
+                    <!--<Entry Placeholder="Location" x:Name="EntLocation">
+                <Entry.Behaviors>
+                    <behaviors:ValidationBehavior Group="{x:Reference Form}" 
+                                                  PropertyName="Text">
+                        <behaviors:ValidationBehavior.Validators>
+                            <implementations:RequiredValidator Message="Location is required" />
+                        </behaviors:ValidationBehavior.Validators>
+                    </behaviors:ValidationBehavior>
+                </Entry.Behaviors>
+                    </Entry>-->
+                    <Label Text="Gender"></Label>
+                    <input:RadioButtonGroupView x:Name="RdGender"  Orientation="Horizontal">
+                        <input:RadioButton Text="Male" Value="Male" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+                        <input:RadioButton Text="Female" Value="Female" TextFontSize="12" Color="#45AC2B" CircleColor="#45AC2B" />
+                    </input:RadioButtonGroupView>
+                    <!--<Label>Donate</Label>-->
+                    <!--<StackLayout Orientation="Horizontal">
+                        <input:CheckBox Text="Blood" x:Name="ChkBlood" Color="#45AC2B" CheckChanged="ChkBlood_CheckChanged" Type="Check" BorderColor="#45AC2B" />
+                        <input:CheckBox Text="Organ" x:Name="ChkOrgan" Color="#45AC2B" CheckChanged="ChkOrgan_CheckChanged" Type="Check" BorderColor="#45AC2B"/>
+                    </StackLayout>-->
+                    <!--<StackLayout IsVisible="False" Spacing="10" x:Name="Bld" Orientation="Horizontal">
+
+                        <Picker SelectedIndexChanged="EntBloodGroup_SelectedIndexChanged"  Title="Blood Group" x:Name="EntBloodGroup" ItemDisplayBinding="{Binding Name}"></Picker>
+                        <Picker Title="Blood Type" x:Name="EntBloodType" ItemDisplayBinding="{Binding Name}"></Picker>
+
+                    </StackLayout>-->
+
+
+
+                    <!--<StackLayout IsVisible="False" Orientation="Horizontal" x:Name="Org" HeightRequest="160" Spacing="5">
+                        <ListView x:Name="Lst" RowHeight="40" CachingStrategy="RecycleElement" SeparatorColor="Transparent" BackgroundColor="Transparent">
+
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <ViewCell>
+
+
+                                        <input:CheckBox x:Name="ChBox" CheckChanged="ChBox_OnCheckChanged" Color="#45AC2B" BindingContext="{Binding .}" VerticalOptions="CenterAndExpand" Orientation="Horizontal" Text="{Binding Name}" Type="Check" BorderColor="#45AC2B" HeightRequest="20" />
+
+                                    </ViewCell>
+
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+                    </StackLayout>-->
+
+                    <StackLayout Margin="0,18,0,0">
+
+                        <Button BackgroundColor="#45AC2B" x:Name="BtnRegister" Clicked="BtnRegister_OnClicked" CornerRadius="30" HeightRequest="40" TextColor="White" Text="Save" Visual="Material"></Button>
+
+                    </StackLayout>
+
+
+                </StackLayout>
+
+            </ScrollView>
+            <ContentView IsVisible="False" x:Name="Overlay" AbsoluteLayout.LayoutBounds="0,0,1,1" Opacity="0.8" BackgroundColor="White" 
+                         HeightRequest="50" WidthRequest="50" AbsoluteLayout.LayoutFlags="All" Padding="10, 0">
+
+                <ActivityIndicator x:Name="Act" Opacity="1" 
+                                   VerticalOptions="Center" HorizontalOptions="Center"
+                                   
+                                   Color="#45AC2B" IsRunning="True">
+
+                </ActivityIndicator>
+            </ContentView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

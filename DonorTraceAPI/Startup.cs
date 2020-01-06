@@ -119,7 +119,7 @@ namespace DonorTraceAPI
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
                 // Create the Db if it doesn't exist and applies any pending migration.
-                // dbContext.Database.Migrate();
+                 dbContext.Database.Migrate();
               // DbSeeder.Seed(dbContext, roleManager, userManager);
 
             }

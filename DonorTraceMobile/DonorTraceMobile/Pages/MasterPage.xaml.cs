@@ -87,5 +87,11 @@ namespace DonorTraceMobile.Pages
             Detail = new NavigationPage(new MyProfile());
             IsPresented = false;
         }
+
+        private void TapUpdateProfile_Tapped(object sender, EventArgs e)
+        {
+            Detail = new NavigationPage(new UpdateProfile());
+            IsPresented = false;
+        }
     }
 }

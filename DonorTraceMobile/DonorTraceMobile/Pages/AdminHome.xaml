@@ -15,8 +15,8 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
 
-            <Button Text="Open Map" x:Name="BtnMap" Clicked="BtnMap_OnClicked"></Button>
-            <Button Text="Get Coordinates" x:Name="BtnGet" Clicked="BtnGet_OnClicked"></Button>
+            <!--<Button Text="Open Map" x:Name="BtnMap" Clicked="BtnMap_OnClicked"></Button>
+            <Button Text="Get Coordinates" x:Name="BtnGet" Clicked="BtnGet_OnClicked"></Button>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

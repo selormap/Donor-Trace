@@ -58,6 +58,8 @@ namespace DonorTraceMobile.Pages
             {
                 Overlay.IsVisible = false;
                 await DisplayAlert("Success", "Officer added successfully", "Ok");
+                await _apiServices.FacilityUserSms(officer);
+
 
                 EntUserName.Text = "";
                 EntLast.Text = "";
@@ -65,6 +67,7 @@ namespace DonorTraceMobile.Pages
                 EntFirst.Text = "";
                 EntDept.Text = "";
                 EntFacility.Items.Clear();
+                await Navigation.PushAsync(new FacilityUsers());
             }
         }
     }
